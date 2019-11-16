@@ -39,17 +39,17 @@ class CoreDataController: NSObject {
         return container
     }()
     
-    // MARK: - Create Object
+    // MARK: - Add to Core Data
     
-    func createObject(countryName: String?) -> CoffeeBean? {
+    func add(countryName: String?) -> Bool {
         guard let countryName = countryName else {
-            return nil
+            return false
         }
         let context = persistentContainer.viewContext
         let coffeeBean = CoffeeBean(context: context)
         coffeeBean.countryName = countryName
         
-        return coffeeBean
+        return true
     }
 
     // MARK: - Core Data Saving support
@@ -68,9 +68,10 @@ class CoreDataController: NSObject {
         }
     }
     
-    // MARK: - Core Data Fetching
+    // MARK: - Fetch from Core Data
     
-    func fetch(request: NSFetchRequest<NSFetchRequestResult>) -> [CoffeeBean] {
+    func fetch(entityName: String) -> [CoffeeBean] {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         let managedContext = persistentContainer.viewContext
         do {
             return try managedContext.fetch(request) as! [CoffeeBean]

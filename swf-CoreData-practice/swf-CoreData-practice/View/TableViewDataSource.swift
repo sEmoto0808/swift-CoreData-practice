@@ -12,8 +12,8 @@ final class TableViewDataSource: NSObject {
 
     private var coffeeBeans = [CoffeeBean]()
     
-    func addCoffeeBean(coffeeBean: CoffeeBean) {
-        coffeeBeans.append(coffeeBean)
+    func fetch(coffeeBeans: [CoffeeBean]) {
+        self.coffeeBeans = coffeeBeans
     }
 }
 

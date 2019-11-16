@@ -25,15 +25,16 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        dataSource.fetch(coffeeBeans: controller.fetch(entityName: "CoffeeBean"))
         coffeeBeanTableView.dataSource = dataSource
     }
 
     // MARK: - IBAction
     
     @IBAction func didTapSave(_ sender: Any) {
-        if let newCoffeeBean = controller.createObject(countryName: countryNameTextField.text) {
+        if controller.add(countryName: countryNameTextField.text) {
             controller.saveContext()
-            dataSource.addCoffeeBean(coffeeBean: newCoffeeBean)
+            dataSource.fetch(coffeeBeans: controller.fetch(entityName: "CoffeeBean"))
             coffeeBeanTableView.reloadData()
             countryNameTextField.text = nil
         }
